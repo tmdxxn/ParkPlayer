@@ -26,11 +26,21 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // 타임리프
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+    // 롬복
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // devtools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // MySQL
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // test 관련
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
