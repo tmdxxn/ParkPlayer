@@ -26,6 +26,7 @@ public class UserDTO {
 
     private String userTell;
 
+    // DTO -> Entity 변환
     public UserEntity toEntity() {
         return UserEntity.builder()
                 .id(id)

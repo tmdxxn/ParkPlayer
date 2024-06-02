@@ -35,6 +35,7 @@ public class UserEntity {
     private String userTell;
 
 
+     // 기본 생성자 (빌더패턴을 사용해서 직관적으로 볼수있게 만듦)
     @Builder
     public UserEntity(Long id, String userId, String userPw, String userName, String userEmail, LocalDate userBirth, String userTell) {
         this.id = id;
