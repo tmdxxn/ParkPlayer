@@ -1,9 +1,12 @@
 package com.movie.parkplayer.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "member")
@@ -14,36 +17,41 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long memNum;
 
     @Column(nullable = false, unique = true)
-    private String userId;
+    private String memId;
 
     @Column(nullable = false)
-    private String userPw;
+    private String memPassword;
 
     @Column(nullable = false)
-    private String userName;
+    private String memEmail;
 
     @Column(nullable = false)
-    private String userEmail;
+    private String memTel;
 
     @Column(nullable = false)
-    private LocalDate userBirth;
+    @Temporal(TemporalType.DATE)
+    private Date memBirth;
 
     @Column(nullable = false)
-    private String userTell;
+    private String memName;
+
+    @Column(nullable = false)
+    private Boolean memGender;
 
 
      // 기본 생성자 (빌더패턴을 사용해서 직관적으로 볼수있게 만듦)
     @Builder
-    public UserEntity(Long id, String userId, String userPw, String userName, String userEmail, LocalDate userBirth, String userTell) {
-        this.id = id;
-        this.userId = userId;
-        this.userPw = userPw;
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userBirth = userBirth;
-        this.userTell = userTell;
+    public UserEntity(String memName, Date memBirth, String memTel, String memEmail, String memPassword, String memId, Long memNum, Boolean memGender) {
+        this.memName = memName;
+        this.memBirth = memBirth;
+        this.memTel = memTel;
+        this.memEmail = memEmail;
+        this.memPassword = memPassword;
+        this.memId = memId;
+        this.memNum = memNum;
+        this.memGender = false;
     }
 }

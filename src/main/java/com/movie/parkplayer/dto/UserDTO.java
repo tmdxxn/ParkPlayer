@@ -5,38 +5,41 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
 
-    private Long id;
+    private Long memNum;
 
-    private String userId;
+    private String memId;
 
-    private String userPw;
+    private String memPassword;
 
-    private String userName;
+    private String memEmail;
 
-    private String userEmail;
+    private String memTel;
 
-    private LocalDate userBirth;
+    private Date memBirth;
 
-    private String userTell;
+    private String memName;
+
+    private Boolean memGender;
+
 
     // DTO -> Entity 변환
     public UserEntity toEntity() {
         return UserEntity.builder()
-                .id(id)
-                .userId(userId)
-                .userName(userName)
-                .userEmail(userEmail)
-                .userBirth(userBirth)
-                .userTell(userTell)
+                .memNum(memNum)
+                .memId(memId)
+                .memPassword(memPassword)
+                .memEmail(memEmail)
+                .memTel(memTel)
+                .memBirth(memBirth)
+                .memName(memName)
+                .memGender(memGender)
                 .build();
     }
-
-
 }
