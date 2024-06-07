@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Date;
 
+// (추후 삭제 예정)
 // 회원가입시 생년월일 Date -> 문자열로 변환
 public class DateFormatter implements Formatter<Date> {
 
