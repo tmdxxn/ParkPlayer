@@ -5,15 +5,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
+import java.io.Serializable;
 import java.util.Date;
 
+// 회원 정보 엔티티
 @Entity
 @Table(name = "member")
-@Getter // 게터 사용해서 모든 필드 접근 가능하게끔.. 세터는 보안위험성때문에 제외
+@Getter
 @ToString
 @NoArgsConstructor
-public class UserEntity {
+public class UserEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,10 +42,11 @@ public class UserEntity {
     @Column(nullable = false)
     private Boolean memGender;
 
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean memSubscribe = false;
 
-     // 기본 생성자 (빌더패턴을 사용해서 직관적으로 볼수있게 만듦)
     @Builder
-    public UserEntity(String memName, Date memBirth, String memTel, String memEmail, String memPassword, String memId, Long memNum, Boolean memGender) {
+    public UserEntity(String memName, Date memBirth, String memTel, String memEmail, String memPassword, String memId, Long memNum, Boolean memGender, Boolean memSubscribe) {
         this.memName = memName;
         this.memBirth = memBirth;
         this.memTel = memTel;
@@ -52,6 +54,11 @@ public class UserEntity {
         this.memPassword = memPassword;
         this.memId = memId;
         this.memNum = memNum;
-        this.memGender = false;
+        this.memGender = memGender;
+        this.memSubscribe = memSubscribe;
+    }
+
+    public void changePassword(String newPassword) {
+        this.memPassword = newPassword;
     }
 }
