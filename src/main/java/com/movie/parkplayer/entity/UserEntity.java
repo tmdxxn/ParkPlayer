@@ -45,7 +45,10 @@ public class UserEntity implements Serializable {
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean memSubscribe = false;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3640adc0ccf911111c64500d93fe4fd89989ee6b
     @Builder
     public UserEntity(String memName, Date memBirth, String memTel, String memEmail, String memPassword, String memId, Long memNum, Boolean memGender, Boolean memSubscribe) {
         this.memName = memName;

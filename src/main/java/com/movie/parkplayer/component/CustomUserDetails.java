@@ -2,12 +2,18 @@ package com.movie.parkplayer.component;
 
 import com.movie.parkplayer.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
+<<<<<<< HEAD
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+=======
+>>>>>>> 3640adc0ccf911111c64500d93fe4fd89989ee6b
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+<<<<<<< HEAD
 import java.util.stream.Collectors;
+=======
+>>>>>>> 3640adc0ccf911111c64500d93fe4fd89989ee6b
 
 // 사용자 권한 관련 ( * 아직 이해를 완벽히 못한 사항이라 잘못된 설명을 할수 있어 GPT설명으로 대체하겠습니다.. * )
 public class CustomUserDetails implements UserDetails {
@@ -32,9 +38,12 @@ public class CustomUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // 현재 권한이 없는 상태로 반환하고 있으나, 실제 권한 로직을 추가할 수 있습니다.
         return Collections.emptyList();
+<<<<<<< HEAD
 ////        return userEntity.getRoles().stream()
 ////                .map(role -> new SimpleGrantedAuthority(role.getName()))
 ////                .collect(Collectors.toList());
+=======
+>>>>>>> 3640adc0ccf911111c64500d93fe4fd89989ee6b
     }
 
     /**
