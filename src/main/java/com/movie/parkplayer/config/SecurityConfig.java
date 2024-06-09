@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
-// 보안 설정
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends AbstractSecurityWebApplicationInitializer {
@@ -31,18 +30,18 @@ public class SecurityConfig extends AbstractSecurityWebApplicationInitializer {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * 인증 관리를 설정하는 AuthenticationManager 빈을 생성합니다.
-     *
-     * @param http                         HttpSecurity 객체
-     * @param customAuthenticationProvider 사용자 정의 인증 프로바이더
-     * @return AuthenticationManager 객체
-     * @throws Exception 예외 발생 시
-     */
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, CustomAuthenticationProvider customAuthenticationProvider) throws Exception {
-        AuthenticationManagerBuilder auth = http.getSharedObject(AuthenticationManagerBuilder.class);
-        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder()).and().authenticationProvider(customAuthenticationProvider);
+
+        AuthenticationManagerBuilder auth = http
+                .getSharedObject(AuthenticationManagerBuilder.class);
+
+        auth
+                .userDetailsService(customUserDetailsService)
+                .passwordEncoder(passwordEncoder())
+                .and()
+                .authenticationProvider(customAuthenticationProvider);
+
         return auth.build();
     }
 
@@ -50,19 +49,25 @@ public class SecurityConfig extends AbstractSecurityWebApplicationInitializer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
 
-                // 유저권한만 들어갈수 있게끔 아래에 설정
-                .requestMatchers("/", "/member/signup", "/member/login").permitAll()
+                        // 유저권한만 들어갈수 있게끔 아래에 설정
+                        .requestMatchers("/", "/member/signup", "/member/login", "/oauth2/**").permitAll()
 
-                // 어드민 권한만 들어갈수있게 설정
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()).formLogin((form) -> form
-                .loginPage("/member/login")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/member/welcome", true)
-                .permitAll()).logout((logout) -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .permitAll());
+                        // 어드민 권한만 들어갈수있게 설정
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated())
+                .formLogin((form) -> form
+                        .loginPage("/member/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll())
+                .logout((logout) -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll())
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/member/login")
+                        .defaultSuccessUrl("/", true)
+                );
 
         return http.build();
     }

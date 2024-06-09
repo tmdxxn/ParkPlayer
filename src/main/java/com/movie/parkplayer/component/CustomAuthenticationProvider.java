@@ -8,14 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.logging.Logger;
-
 // 사용자 정의 인증 로직을 구현
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
-
-    // 이벤트, 오류를 기록하기 위한 로그 객체 사용
-    private static final Logger logger = Logger.getLogger(CustomAuthenticationProvider.class.getName());
 
     private final CustomUserDetailsService customUserDetailsService;
 

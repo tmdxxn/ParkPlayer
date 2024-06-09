@@ -3,6 +3,7 @@ package com.movie.parkplayer.component;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 
 // 로그인 실패시 처리 핸들러
 @Component
+@Slf4j
 public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
     // 이벤트, 오류를 기록하기 위한 로그 객체 사용
@@ -37,7 +39,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
         }
 
         // 예외 메시지를 로그로 기록
-        logger.warning("Authentication failed: " + exception.getMessage());
+        log.warn("Authentication failed: " + exception.getMessage());
 
         // 세션에 에러 메시지 저장
         request.getSession().setAttribute("error", errorMessage);
