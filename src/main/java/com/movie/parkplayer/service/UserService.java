@@ -19,8 +19,8 @@ public class UserService {
     }
 
 
-    public UserEntity findByUsername(String username) {
-        return userRepository.findByMemId(username)
-                .orElseThrow(() -> new UsernameNotFoundException("회원을 찾을수 없습니다 : " + username));
+    public UserEntity findBymemId(String memId) {
+        return userRepository.findByMemId(memId)
+                .orElseThrow(() -> new UsernameNotFoundException("회원을 찾을수 없습니다 : " + memId));
     }
 }

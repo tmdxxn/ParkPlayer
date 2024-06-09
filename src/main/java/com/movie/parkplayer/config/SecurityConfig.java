@@ -52,11 +52,8 @@ public class SecurityConfig extends AbstractSecurityWebApplicationInitializer {
         http
                 .authorizeHttpRequests((requests) -> requests
                         // 접근 권한 설정
-<<<<<<< HEAD
                         .requestMatchers("/", "/member/signup", "/member/login", "/adminPostview").permitAll()
-=======
                         .requestMatchers("/", "/member/signup", "/member/login").permitAll()
->>>>>>> 3640adc0ccf911111c64500d93fe4fd89989ee6b
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

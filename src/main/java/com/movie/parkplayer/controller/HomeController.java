@@ -1,16 +1,18 @@
 package com.movie.parkplayer.controller;
 
-import com.movie.parkplayer.service.NoticeService;
 import com.movie.parkplayer.entity.Notice;
+import com.movie.parkplayer.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -19,10 +21,12 @@ import java.util.Optional;
 public class HomeController {
     @Autowired
     private NoticeService noticeService;
-    
-    @GetMapping("/")
-    public String home() {
-        return "";
+
+    // 메인페이지
+    @GetMapping("/main")
+    public String welcome(Model model, Principal principal) {
+        model.addAttribute("username", principal.getName());
+        return "index";
     }
     
     //전체 공지사항가는 메서드

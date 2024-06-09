@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
-
 // 회원 관련 로직
 @Controller
 @RequestMapping("/member")
@@ -34,13 +32,6 @@ public class UserController {
     @GetMapping("/login")
     public String LoginForm() {
         return "login";
-    }
-
-    // (임시) 로그인 완료시
-    @GetMapping("/welcome")
-    public String welcome(Model model, Principal principal) {
-        model.addAttribute("username", principal.getName());
-        return "welcome";
     }
 
     // 회원가입 폼
