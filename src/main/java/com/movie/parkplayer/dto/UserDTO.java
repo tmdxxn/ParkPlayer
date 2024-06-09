@@ -1,6 +1,7 @@
 package com.movie.parkplayer.dto;
 
 import com.movie.parkplayer.entity.UserEntity;
+import com.movie.parkplayer.repository.UserRole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,7 +27,9 @@ public class UserDTO {
 
     private Boolean memGender;
 
-    private Boolean memSubscribe = false; // 기본값 설정
+    private Boolean memSubscribe = false;
+
+    private UserRole role;
 
     // 엔티티화 ( 비밀번호는 암호화상태로 )
     public UserEntity toEntity(String encodedPassword) {
@@ -40,6 +43,7 @@ public class UserDTO {
                 .memNum(memNum)
                 .memGender(memGender)
                 .memSubscribe(memSubscribe)
+                .role(role)
                 .build();
     }
 }

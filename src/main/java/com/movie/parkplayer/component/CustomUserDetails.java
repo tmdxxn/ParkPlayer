@@ -2,6 +2,7 @@ package com.movie.parkplayer.component;
 
 import com.movie.parkplayer.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -21,75 +22,43 @@ public class CustomUserDetails implements UserDetails {
         this.userEntity = userEntity;
     }
 
-    /**
-     * 사용자의 권한을 반환합니다.
-     *
-     * @return 사용자의 권한 컬렉션
-     */
+    // 권한 여부
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 현재 권한이 없는 상태로 반환하고 있으나, 실제 권한 로직을 추가할 수 있습니다.
-        return Collections.emptyList();
-//        return userEntity.getRoles().stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getName()))
-//                .collect(Collectors.toList());
+        return Collections.singletonList(new SimpleGrantedAuthority(userEntity.getRole().name()));
     }
 
-    /**
-     * 사용자의 비밀번호를 반환합니다.
-     *
-     * @return 비밀번호
-     */
+    // 사용자 pw 반환
     @Override
     public String getPassword() {
         return userEntity.getMemPassword();
     }
 
-    /**
-     * 사용자의 이름(ID)을 반환합니다.
-     *
-     * @return 사용자 이름(ID)
-     */
+    // 사용자 id 반환
     @Override
     public String getUsername() {
         return userEntity.getMemId();
     }
 
-    /**
-     * 사용자의 계정이 만료되지 않았는지 여부를 반환합니다.
-     *
-     * @return 계정 만료 여부
-     */
+    // 계정 만료 여부
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    /**
-     * 사용자의 계정이 잠겨있지 않은지 여부를 반환합니다.
-     *
-     * @return 계정 잠김 여부
-     */
+    // 계정 잠김 여부
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    /**
-     * 사용자의 자격 증명이 만료되지 않았는지 여부를 반환합니다.
-     *
-     * @return 자격 증명 만료 여부
-     */
+    // 자격 증명 만료 여부
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    /**
-     * 사용자의 계정이 활성화되어 있는지 여부를 반환합니다.
-     *
-     * @return 계정 활성화 여부
-     */
+    // 계정 활성화 여부
     @Override
     public boolean isEnabled() {
         return true;

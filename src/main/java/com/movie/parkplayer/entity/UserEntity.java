@@ -1,10 +1,12 @@
 package com.movie.parkplayer.entity;
 
+import com.movie.parkplayer.repository.UserRole;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -54,9 +56,14 @@ public class UserEntity implements Serializable {
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean memSubscribe = false;
 
+    // 회원 권한 부여
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole role;
+
     // 기본 생성자
     @Builder
-    public UserEntity(String memName, Date memBirth, String memTel, String memEmail, String memPassword, String memId, Long memNum, Boolean memGender, Boolean memSubscribe) {
+    public UserEntity(String memName, Date memBirth, String memTel, String memEmail, String memPassword, String memId, Long memNum, Boolean memGender, Boolean memSubscribe, UserRole role) {
         this.memName = memName;
         this.memBirth = memBirth;
         this.memTel = memTel;
@@ -66,6 +73,7 @@ public class UserEntity implements Serializable {
         this.memNum = memNum;
         this.memGender = memGender;
         this.memSubscribe = memSubscribe;
+        this.role = role;
     }
 
     // 비밀번호 변경
