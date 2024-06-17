@@ -17,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+// 김승준
 @Component
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {

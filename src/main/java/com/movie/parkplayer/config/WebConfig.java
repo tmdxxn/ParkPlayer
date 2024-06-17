@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Date;
 
+// 김승준
 // 날짜 형태 변환
 @Configuration
 public class WebConfig implements WebMvcConfigurer {

@@ -54,7 +54,7 @@
     <div th:if="${param.error}" class="error-message">
         Error: Please fill out all required fields correctly.
     </div>
-    <form th:action="@{/member/signup}" th:object="${userDTO}" method="post">
+    <form th:action="@{/signup}" th:object="${userDTO}" method="post">
         <input type="text" th:field="*{memId}" placeholder="Username" required>
         <input type="password" th:field="*{memPassword}" placeholder="Password" required>
         <input type="email" th:field="*{memEmail}" placeholder="Email" required>

@@ -5,6 +5,7 @@ import com.movie.parkplayer.repository.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+// 김승준
 @Service
 public class UserService {
 

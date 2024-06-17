@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 
+// 김승준
 @Component
 @Slf4j
 public class JWTTokenUtil {

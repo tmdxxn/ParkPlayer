@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+// 김승준
 @Data
 @NoArgsConstructor
 public class UserDTO {
@@ -19,7 +20,6 @@ public class UserDTO {
     private Date memBirth;
     private String memName;
     private Boolean memGender;
-    private Boolean memSubscribe = false;
     private UserRole role;
 
     public UserEntity toEntity(String encodedPassword) {
@@ -32,7 +32,6 @@ public class UserDTO {
                 .memId(memId)
                 .memNum(memNum)
                 .memGender(memGender)
-                .memSubscribe(memSubscribe)
                 .role(role)
                 .build();
     }

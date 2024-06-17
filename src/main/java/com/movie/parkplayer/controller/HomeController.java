@@ -36,10 +36,8 @@ public class HomeController {
         return "index";
     }
 
-
-
     //전체 공지사항가는 메서드
-    @GetMapping("/postwrite")
+    @GetMapping("/admin/postwrite")
     public String adminNotice(Model model) {
         List<Notice> notices = noticeService.getAllNotices(); // NoticeService에서 공지사항 목록을 가져오는 메서드 호출
         model.addAttribute("notices", notices); // 모델에 공지사항 목록 추가
@@ -68,11 +66,11 @@ public class HomeController {
         }
 
         Notice newNotice = Notice.builder()
-                .mem_id(username)
-                .noti_title(title)
-                .noti_category(category)
-                .noti_content(content)
-                .noti_date(nowdate)
+                .memId(username)
+                .notiTitle(title)
+                .notiCategory(category)
+                .notiContent(content)
+                .notiDate(nowdate)
                 .build();
 
         noticeService.save(newNotice);

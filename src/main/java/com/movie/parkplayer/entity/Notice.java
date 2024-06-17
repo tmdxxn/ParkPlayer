@@ -13,31 +13,31 @@ import java.util.Date;
 public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long noti_id;
+    private Long notiId;
 
     @Column(nullable = false)
-    private String mem_id;
+    private String memId;
 
     @Column(nullable = false)
-    private String noti_title;
+    private String notiTitle;
 
     @Column(nullable = false)
-    private String noti_category;
+    private String notiCategory;
 
     @Column(nullable = false)
-    private String noti_content;
+    private String notiContent;
 
     @Column(nullable = false)
-    private Date noti_date;
+    private Date notiDate;
     
     //생성자
     @Builder
-    public Notice(Long noti_id, String mem_id, String noti_title, String noti_content, Date noti_date, String noti_category) {
-        this.noti_id = noti_id;
-        this.mem_id = mem_id;
-        this.noti_title = noti_title;
-        this.noti_content = noti_content;
-        this.noti_date = noti_date;
-        this.noti_category = noti_category;
+    public Notice(Long notiId, String memId, String notiTitle, String notiContent, Date notiDate, String notiCategory) {
+        this.notiId = notiId;
+        this.memId = memId;
+        this.notiTitle = notiTitle;
+        this.notiContent = notiContent;
+        this.notiDate = notiDate;
+        this.notiCategory = notiCategory;
     }
 }

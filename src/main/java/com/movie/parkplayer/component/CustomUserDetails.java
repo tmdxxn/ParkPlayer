@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+// 김승준
 public class CustomUserDetails implements UserDetails {
 
     private final UserEntity userEntity;

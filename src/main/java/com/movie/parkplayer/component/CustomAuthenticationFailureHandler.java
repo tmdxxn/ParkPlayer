@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-// 로그인 실패시 처리 핸들러
+// 김승준
 @Component
 @Slf4j
 public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {

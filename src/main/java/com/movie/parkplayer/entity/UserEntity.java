@@ -10,6 +10,7 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.util.Date;
 
+// 김승준
 @Entity
 @Table(name = "member")
 @Getter
@@ -27,7 +28,7 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private String memPassword;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String memEmail;
 
     @Column(nullable = false)
@@ -43,15 +44,12 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private Boolean memGender;
 
-    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
-    private Boolean memSubscribe = false;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;
 
     @Builder
-    public UserEntity(String memName, Date memBirth, String memTel, String memEmail, String memPassword, String memId, Long memNum, Boolean memGender, Boolean memSubscribe, UserRole role) {
+    public UserEntity(String memName, Date memBirth, String memTel, String memEmail, String memPassword, String memId, Long memNum, Boolean memGender, UserRole role) {
         this.memName = memName;
         this.memBirth = memBirth;
         this.memTel = memTel;
@@ -60,7 +58,6 @@ public class UserEntity implements Serializable {
         this.memId = memId;
         this.memNum = memNum;
         this.memGender = memGender;
-        this.memSubscribe = memSubscribe;
         this.role = role;
     }
 

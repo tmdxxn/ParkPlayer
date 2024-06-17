@@ -1,7 +1,6 @@
 package com.movie.parkplayer.dto;
 
 import com.movie.parkplayer.entity.Notice;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,26 +11,26 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NoticeDTO {
-    private Long noti_id;
+    private Long notiId;
 
-    private String mem_id;
+    private String memId;
 
-    private String noti_title;
+    private String notiTitle;
 
-    private String noti_category;
+    private String notiCategory;
 
-    private String noti_content;
+    private String notiContent;
 
-    private Date noti_date;
+    private Date notiDate;
 
     public Notice toNotice() {
         return Notice.builder()
-                .noti_id(noti_id)
-                .mem_id(mem_id)
-                .noti_category(noti_category)
-                .noti_title(noti_title)
-                .noti_content(noti_content)
-                .noti_date(noti_date)
+                .notiId(notiId)
+                .memId(memId)
+                .notiCategory(notiCategory)
+                .notiTitle(notiTitle)
+                .notiContent(notiContent)
+                .notiDate(notiDate)
                 .build();
     }
 

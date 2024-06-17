@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+// 김승준
 @Component
 @Slf4j
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
