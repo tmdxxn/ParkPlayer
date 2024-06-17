@@ -1,6 +1,9 @@
 package com.movie.parkplayer.config;
 
+import com.movie.parkplayer.component.CustomAuthenticationFailureHandler;
 import com.movie.parkplayer.component.CustomAuthenticationProvider;
+import com.movie.parkplayer.component.CustomAuthenticationSuccessHandler;
+import com.movie.parkplayer.filter.JwtAuthenticationFilter;
 import com.movie.parkplayer.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,19 +13,30 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends AbstractSecurityWebApplicationInitializer {
+public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService,
+                          JwtAuthenticationFilter jwtAuthenticationFilter,
+                          CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler,
+                          CustomAuthenticationFailureHandler customAuthenticationFailureHandler) {
         this.customUserDetailsService = customUserDetailsService;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
+        this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
     }
 
     @Bean
@@ -32,12 +46,8 @@ public class SecurityConfig extends AbstractSecurityWebApplicationInitializer {
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, CustomAuthenticationProvider customAuthenticationProvider) throws Exception {
-
-        AuthenticationManagerBuilder auth = http
-                .getSharedObject(AuthenticationManagerBuilder.class);
-
-        auth
-                .userDetailsService(customUserDetailsService)
+        AuthenticationManagerBuilder auth = http.getSharedObject(AuthenticationManagerBuilder.class);
+        auth.userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder())
                 .and()
                 .authenticationProvider(customAuthenticationProvider);
@@ -47,32 +57,36 @@ public class SecurityConfig extends AbstractSecurityWebApplicationInitializer {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) -> requests
-
-                        // 유저권한만 들어갈수 있게끔 아래에 설정
-                        .requestMatchers("/", "/member/signup", "/member/login", "/oauth2/**").permitAll()
-
-                        // 어드민 권한만 들어갈수있게 설정
+        http.csrf(csrf -> csrf
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .ignoringRequestMatchers("/login", "/signup"))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/login", "/signup", "/", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/oauth2/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
-                .formLogin((form) -> form
-                        .loginPage("/member/login")
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin(form -> form
+                        .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/", true)
+                        .successHandler(customAuthenticationSuccessHandler)
+                        .failureHandler(customAuthenticationFailureHandler)
                         .permitAll())
-                .logout((logout) -> logout
+                .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
                         .permitAll())
                 .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/member/login")
-                        .defaultSuccessUrl("/", true)
-                );
+                        .loginPage("/login")
+                        .successHandler(customAuthenticationSuccessHandler));
 
         return http.build();
     }
 
-    // 회원 권한 로직 (일반유저 < 어드민)
+
     @Bean
     public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
@@ -80,3 +94,4 @@ public class SecurityConfig extends AbstractSecurityWebApplicationInitializer {
         return roleHierarchy;
     }
 }
+

@@ -2,6 +2,7 @@ package com.movie.parkplayer.controller;
 
 import com.movie.parkplayer.entity.Notice;
 import com.movie.parkplayer.service.NoticeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,17 +19,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@Slf4j
 public class HomeController {
     @Autowired
     private NoticeService noticeService;
 
-    // 메인페이지
-    @GetMapping("/main")
-    public String welcome(Model model, Principal principal) {
-        model.addAttribute("username", principal.getName());
+    // 메인 페이지
+    @GetMapping("/")
+    public String main(Model model, Principal principal) {
+        if (principal != null) {
+            model.addAttribute("username", principal.getName());
+        } else {
+            model.addAttribute("username", "Guest");
+        }
+        log.debug("Accessing /main with user: " + model.getAttribute("username"));
         return "index";
     }
-    
+
+
+
     //전체 공지사항가는 메서드
     @GetMapping("/postwrite")
     public String adminNotice(Model model) {

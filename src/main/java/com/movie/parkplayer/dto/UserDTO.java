@@ -12,26 +12,16 @@ import java.util.Date;
 public class UserDTO {
 
     private Long memNum;
-
     private String memId;
-
     private String memPassword;
-
     private String memEmail;
-
     private String memTel;
-
     private Date memBirth;
-
     private String memName;
-
     private Boolean memGender;
-
     private Boolean memSubscribe = false;
-
     private UserRole role;
 
-    // 엔티티화 ( 비밀번호는 암호화상태로 )
     public UserEntity toEntity(String encodedPassword) {
         return UserEntity.builder()
                 .memName(memName)
