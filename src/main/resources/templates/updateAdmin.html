@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Notice</title>
+</head>
+<body>
+<h1>Update Notice</h1>
+<form id="updateForm" th:action="@{/notices/{id}/edit}" >
+    <input type="hidden" id="noticeId" name="id" th:value="${notice.id}" />
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" th:value="${notice.title}" /><br/>
+
+    <label for="content">Content:</label>
+    <input type="text" id="content" name="content" th:value="${notice.content}" /><br/>
+
+    <button type="submit">수정하기</button>
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const updateForm = document.getElementById('updateForm');
+        if (updateForm) {
+            updateForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // 폼의 기본 동작인 새로고침을 막음
+
+                // title과 content 요소의 값을 가져옴
+                const title = document.getElementById('title').value;
+                const content = document.getElementById('content').value;
+
+                // 실제 noticeId 값을 가져오기
+                const noticeId = document.getElementById('noticeId').value;
+
+                fetch(`/notices/${noticeId}/edit`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title, content })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/admin'; // 성공 시 Admin 페이지로 리디렉션
+                    } else {
+                        console.error('Update failed');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        } else {
+            console.error('updateForm element not found');
+        }
+    });
+</script>
+</body>
+</html>

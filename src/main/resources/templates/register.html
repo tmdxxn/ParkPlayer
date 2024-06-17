@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .register-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .register-container h2 {
+            margin-bottom: 20px;
+        }
+        .register-container input[type="text"],
+        .register-container input[type="password"],
+        .register-container input[type="email"],
+        .register-container input[type="tel"],
+        .register-container input[type="date"],
+        .register-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .register-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .register-container button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<div class="register-container">
+    <h2>Register</h2>
+    <div th:if="${param.error}" class="error-message">
+        Error: Please fill out all required fields correctly.
+    </div>
+    <form th:action="@{/signup}" th:object="${userDTO}" method="post">
+        <input type="text" th:field="*{memId}" placeholder="Username" required>
+        <input type="password" th:field="*{memPassword}" placeholder="Password" required>
+        <input type="email" th:field="*{memEmail}" placeholder="Email" required>
+        <input type="tel" th:field="*{memTel}" placeholder="Phone Number" required>
+        <input type="date" th:field="*{memBirth}" placeholder="Date of Birth" required>
+        <input type="text" th:field="*{memName}" placeholder="Full Name" required>
+        <select th:field="*{memGender}" required>
+            <option value="true">Male</option>
+            <option value="false">Female</option>
+        </select>
+        <button type="submit">Sign Up</button>
+    </form>
+</div>
+</body>
+</html>

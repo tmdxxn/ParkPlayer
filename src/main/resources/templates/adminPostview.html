@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 문의사항 페이지</title>
+
+</head>
+
+<body>
+<!-- 사이드메뉴 -->
+<border>
+    <ul>
+        <li>로고</li>
+        <li>회원통계</li>
+        <li>회원관리</li>
+        <li>영화관리</li>
+        <li>문의사항</li>
+    </ul>
+</border>
+
+
+<!-- 관리자 문의사항 영역 -->
+<!-- 문의사항 박스 -->
+<div>
+    <div>
+        <h1>문의사항</h1>
+    </div>
+
+    <!-- 문의사항 글쓰기 영역 -->
+    <div>
+        <ul>
+            <li th:each="notice, iterStat : ${notices}">
+                <input type="radio" name="selectedNotice" th:value="${notice.id}" />
+                <a th:href="@{/notices/{noti_id}/show(id=${notice.id})}">
+                    <span th:text="${iterStat.count}">1</span> <!-- 순번 -->
+                    <span th:text="${notice.username}">사용자ID</span> <!-- 사용자ID -->
+                    <span th:text="${notice.noti_title}">제목</span> <!-- 제목 -->
+                    <span th:text="${#dates.format(notice.Ntime, 'yyyy-MM-dd')}">작성 기준 시간</span> <!-- 작성 기준 시간 -->
+                </a>
+                <!--            <a th:href="@{/notices/{id}/edit(id=${notice.id})}">수정하기</a>-->
+            </li>
+        </ul>
+        <!-- 목차 -->
+<!--        <ul>-->
+<!--            <li>번호</li>-->
+<!--            <li>글구분</li>-->
+<!--            <li>제목</li>-->
+<!--            <li>글쓴이</li>-->
+<!--            <li>날짜</li>-->
+<!--        </ul>-->
+<!--        &lt;!&ndash; 게시글(1) &ndash;&gt;-->
+<!--        <ul>-->
+<!--            <li>1번호</li>-->
+<!--            <li>글구분</li>-->
+<!--            <li><a href="#">제목</a></li>-->
+<!--            <li>글쓴이</li>-->
+<!--            <li>날짜</li>-->
+<!--        </ul>-->
+<!--        &lt;!&ndash; 게시글(2) &ndash;&gt;-->
+<!--        <ul>-->
+<!--            <li>2번호</li>-->
+<!--            <li>글구분</li>-->
+<!--            <li><a href="#">제목</a></li>-->
+<!--            <li>글쓴이</li>-->
+<!--            <li>날짜</li>-->
+<!--        </ul>-->
+<!--        &lt;!&ndash; 게시글(3) &ndash;&gt;-->
+<!--        <ul>-->
+<!--            <li>3번호</li>-->
+<!--            <li>글구분</li>-->
+<!--            <li><a href="#">제목</a></li>-->
+<!--            <li>글쓴이</li>-->
+<!--            <li>날짜</li>-->
+<!--        </ul>-->
+<!--        &lt;!&ndash; 게시글(4) &ndash;&gt;-->
+<!--        <ul>-->
+<!--            <li>4번호</li>-->
+<!--            <li>글구분</li>-->
+<!--            <li><a href="#">제목</a></li>-->
+<!--            <li>글쓴이</li>-->
+<!--            <li>날짜</li>-->
+<!--        </ul>-->
+<!--        &lt;!&ndash; 게시글(5) &ndash;&gt;-->
+<!--        <ul>-->
+<!--            <li>5번호</li>-->
+<!--            <li>글구분</li>-->
+<!--            <li><a href="#">제목</a></li>-->
+<!--            <li>글쓴이</li>-->
+<!--            <li>날짜</li>-->
+<!--        </ul>-->
+<!--        &lt;!&ndash; 게시글(6) &ndash;&gt;-->
+<!--        <ul>-->
+<!--            <li>6번호</li>-->
+<!--            <li>글구분</li>-->
+<!--            <li><a href="#">제목</a></li>-->
+<!--            <li>글쓴이</li>-->
+<!--            <li>날짜</li>-->
+<!--        </ul>-->
+<!--        &lt;!&ndash; 게시글(7) &ndash;&gt;-->
+<!--        <ul>-->
+<!--            <li>번호7</li>-->
+<!--            <li>글구분</li>-->
+<!--            <li><a href="#">제목</a></li>-->
+<!--            <li>글쓴이</li>-->
+<!--            <li>날짜</li>-->
+<!--        </ul>-->
+<!--        &lt;!&ndash; 게시글(8) &ndash;&gt;-->
+<!--        <ul>-->
+<!--            <li>번호8</li>-->
+<!--            <li>글구분</li>-->
+<!--            <li><a href="#">제목</a></li>-->
+<!--            <li>글쓴이</li>-->
+<!--            <li>날짜</li>-->
+<!--        </ul>-->
+<!--        &lt;!&ndash; 게시글(9) &ndash;&gt;-->
+<!--        <ul>-->
+<!--            <li>번호9</li>-->
+<!--            <li>글구분</li>-->
+<!--            <li><a href="#">제목</a></li>-->
+<!--            <li>글쓴이</li>-->
+<!--            <li>날짜</li>-->
+<!--        </ul>-->
+<!--        &lt;!&ndash; 게시글(10) &ndash;&gt;-->
+<!--        <ul>-->
+<!--            <li>10번호</li>-->
+<!--            <li>글구분</li>-->
+<!--            <li><a href="#">제목</a></li>-->
+<!--            <li>글쓴이</li>-->
+<!--            <li>날짜</li>-->
+<!--        </ul>-->
+    </div>
+</div>
+<!-- 페이지버튼 -->
+<div>
+    <ul>
+        <a href="#"><li>&lt;</li></a>
+        <a href="#"><li>1</li></a>
+        <a href="#"><li>2</li></a>
+        <a href="#"><li>3</li></a>
+        <a href="#"><li>4</li></a>
+        <a href="#"><li>5</li></a>
+        <a href="#"><li>6</li></a>
+        <a href="#"><li>7</li></a>
+        <a href="#"><li>8</li></a>
+        <a href="#"><li>9</li></a>
+        <a href="#"><li>10</li></a>
+        <a href="#"><li>&gt;</li></a>
+    </ul>
+</div>
+<div>
+    <form action="creatAd" method="GET">
+        <button type="submit" class="btn02">글 작성</button>
+    </form>
+    <div class="admin-notice-btn">
+        <button type="button" class="btn02" onclick="redirectToEdit()">글 수정</button>
+    </div>
+    <div>
+        <button type="button" class="delete-btn" onclick="deletead()">글 삭제</button>
+    </div>
+</div>
+</body>
+
+</html>

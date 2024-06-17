@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기 페이지</title>
+</head>
+
+<body>
+<!-- 헤더시작 -->
+<header>
+
+    <div class="logo">
+        <a href="#">logo</a>
+    </div>
+
+    <div class="movie">
+        <a href="#">movie</a>
+    </div>
+
+    <div class="search">
+        <input type="text">
+    </div>
+
+    <div class="center">
+        <a href="#">고객</a>
+    </div>
+
+    <div class="member">
+        <a href="#">회원가입</a>
+    </div>
+
+    <div class="login">
+        <a href="#">로그인</a>
+    </div>
+</header>
+
+
+<!--글쓰기 영역 -->
+<form action="/write" method="post">
+    <!-- 제목 -->
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title" required><br>
+    <!-- 분류 -->
+    <label for="category">분류</label>
+    <select name="category" id="category">
+        <!-- 목록에 뭘 넣을지 추후결정 -->
+        <option value="공지사항">공지사항</option>
+        <option value="자유게시판">자유게시판</option>
+    </select><br>
+    <!-- 내용 -->
+    <label for="content"></label>
+    <textarea name="content" id="content" cols="30" rows="10" required></textarea><br>
+
+    <!-- 첨부파일버튼 -->
+    <input type="file" id="file" name="file" value="첨부파일"><br>
+    <!-- 글쓰기 버튼 -->
+    <input type="submit" value="글쓰기">
+    <!-- 자바 or 서브및으로할지 추루 결정 -->
+</form>
+
+</body>
+
+</html>
