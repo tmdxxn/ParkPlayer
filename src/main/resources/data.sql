@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS ParkPlayer_db;
+CREATE DATABASE ParkPlayer_db;

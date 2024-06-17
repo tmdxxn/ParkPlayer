@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Reviews</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .pagination {
+            list-style-type: none;
+            display: inline-flex;
+            padding: 0;
+        }
+        .pagination li {
+            margin: 4px;
+        }
+        .pagination li a {
+            text-decoration: none;
+            color: black;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            transition: background-color .3s;
+        }
+        .pagination li a.active {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+        }
+        .pagination li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+<h2>Movie Reviews</h2>
+
+<!-- 리뷰 리스트 -->
+<h3>Reviews</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Review ID</th>
+        <th>User ID</th>
+        <th>Review Content</th>
+        <th>Review Score</th>
+        <th>Review Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Thymeleaf 반복문을 이용해 각 리뷰 정보를 출력 -->
+    <tr th:each="review : ${reviews}">
+        <td th:text="${review.reviewId}"></td>
+        <td th:text="${review.userId}"></td>
+        <td th:text="${review.reviewContent}"></td>
+        <td th:text="${review.reviewScore}"></td>
+        <td th:text="${#dates.format(review.reviewDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td>
+            <!-- 리뷰 수정 링크 -->
+            <a th:href="@{/detail/{movieId}/review/{reviewId}(movieId=${movieId}, reviewId=${review.reviewId})}">Edit</a>
+            <!-- 리뷰 삭제 폼 -->
+            <form th:action="@{/detail/{movieId}/review/{reviewId}(movieId=${movieId}, reviewId=${review.reviewId})}" method="post">
+                <input type="hidden" name="_method" value="delete" />
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- 페이지네이션 -->
+<div>
+    <ul class="pagination">
+        <!-- 이전 페이지 링크 -->
+        <li th:class="${currentPage == 1 ? 'disabled' : ''}">
+            <a th:if="${currentPage != 1}" th:href="@{/detail/{movieId}/reviews(movieId=${movieId}, page=${currentPage - 2}, size=${size})}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            <span th:if="${currentPage == 1}" aria-label="Previous" style="color: lightgray; cursor: not-allowed;">
+        <span aria-hidden="true">&laquo;</span>
+    </span>
+        </li>
+        위 코드에서 th
+        <!-- 페이지 번호 링크 -->
+        <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" th:class="${pageNum == currentPage} ? 'active' : ''">
+            <a th:href="@{/detail/{movieId}/reviews(movieId=${movieId}, page=${pageNum}, size=${size})}" th:text="${pageNum + 1}"></a>
+        </li>
+        <!-- 다음 페이지 링크 -->
+        <li th:class="${currentPage + 1 == totalPages} ? 'disabled' : ''">
+            <a th:href="@{/detail/{movieId}/reviews(movieId=${movieId}, page=${currentPage + 1}, size=${size})}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- 평균 점수 -->
+<div>
+    <p>Average Score: <span th:text="${averageScore}"></span></p>
+</div>
+</body>
+</html>
