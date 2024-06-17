@@ -1,29 +1,24 @@
 package com.movie.parkplayer.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class DetailReviewEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-//    @ManyToOne
-//    @JoinColumn(name = movieId, nullable = false)
-//    private MovieEntity movieId;
-
     @Column(nullable = false)
-    private String userId; // 외래 키가 아닌 일반적인 엔티티의 속성
+    private Long memNum;
 
     @Column(nullable = false)
     private String reviewContent;
@@ -32,16 +27,9 @@ public class DetailReviewEntity {
     private Integer reviewScore;
 
     @Column(nullable = false)
-    private LocalDate reviewDate;
+    private Date reviewDate;
 
-    @Builder
-    public DetailReviewEntity(
-            Long reviewId, String reviewContent, Integer reviewScore, LocalDate reviewDate, String userId) { //MovieEntity movieId 영화 만들면
-        this.reviewId = reviewId;
-        this.reviewContent = reviewContent;
-        this.reviewScore = reviewScore;
-        this.reviewDate = reviewDate;
-        this.userId = userId;
-        //        this.movieId = movieId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "movieId", nullable = false)
+    private MovieEntity movie;
 }

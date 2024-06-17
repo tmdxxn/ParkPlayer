@@ -1,13 +1,16 @@
 package com.movie.parkplayer.dto;
 
 import com.movie.parkplayer.entity.DetailReviewEntity;
+import com.movie.parkplayer.entity.MovieEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class DetailReviewDTO {
@@ -17,11 +20,11 @@ public class DetailReviewDTO {
 
     private Integer reviewScore;
 
-    private LocalDate reviewDate;
+    private Date reviewDate;
 
-    private String userId;
+    private Long memNum;
 
-//    private movieEntity movieId;
+    private MovieEntity movie;
 
     public DetailReviewEntity toEntity() {
         return DetailReviewEntity.builder()
@@ -29,8 +32,8 @@ public class DetailReviewDTO {
                 .reviewContent(reviewContent)
                 .reviewScore(reviewScore)
                 .reviewDate(reviewDate)
-                .userId(userId)
-//                .movieId(movieId)
+                .memNum(memNum)
+                .movie(movie)
                 .build();
     }
 }
