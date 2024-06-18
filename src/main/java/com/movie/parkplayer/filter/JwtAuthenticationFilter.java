@@ -41,8 +41,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 username = jwtTokenUtil.getUsernameFromToken(token);
             } catch (Exception e) {
-                log.error("Unable to get JWT Token or JWT Token has expired", e);
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT Token");
+                log.error("JWT 토큰을 가져올 수 없거나 JWT 토큰이 만료되었습니다.", e);
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "잘못된 JWT 토큰");
                 return;
             }
         }
@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         userDetails, null, userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                log.debug("Authenticated user: {}", username);
+                log.debug("인증된 사용자 : {}", username);
             }
         }
 

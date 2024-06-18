@@ -30,9 +30,9 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
             errorMessage = "계정이 잠겨있습니다. 관리자에게 문의해주세요.";
         }
 
-        log.warn("Authentication failed: " + exception.getMessage());
+        log.warn("인증 실패: " + exception.getMessage());
 
-        request.getSession().setAttribute("error", errorMessage);
+        request.getSession().setAttribute("에러 : ", errorMessage);
         response.sendRedirect("/login");
     }
 }

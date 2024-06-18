@@ -1,3 +1,19 @@
+// 맴버쉽 관련 삭제 예정
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //package com.movie.parkplayer.entity;
 //
 //import jakarta.persistence.*;

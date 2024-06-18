@@ -48,7 +48,7 @@ public class JWTTokenUtil {
                     .getBody()
                     .getSubject();
         } catch (JwtException e) {
-            log.error("Invalid JWT token", e);
+            log.error("잘못된 JWT 토큰", e);
             return null;
         }
     }
@@ -56,7 +56,7 @@ public class JWTTokenUtil {
     public boolean validateToken(String token) {
         String username = getUsernameFromToken(token);
         boolean isValid = (username != null && !isTokenExpired(token));
-        log.debug("Token validation result: {}", isValid);
+        log.debug("토큰 유효성 검사 결과 : {}", isValid);
         return isValid;
     }
 
@@ -68,7 +68,7 @@ public class JWTTokenUtil {
                 .getBody()
                 .getExpiration();
         boolean isExpired = expiration.before(new Date());
-        log.debug("Token expiration status: {}", isExpired);
+        log.debug("토큰 만료 여부 : {}", isExpired);
         return isExpired;
     }
 }
