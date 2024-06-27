@@ -38,11 +38,11 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String processSignup(UserDTO userDTO, RedirectAttributes redirectAttributes) {
+    public String Signup(UserDTO userDTO, RedirectAttributes redirectAttributes) {
         try {
             String encodedPassword = passwordEncoder.encode(userDTO.getMemPassword());
             userDTO.setMemPassword(encodedPassword);
-            userDTO.setRole(UserRole.ROLE_USER);
+            userDTO.setRole(UserRole.USER);
 
             UserEntity userEntity = userDTO.toEntity(encodedPassword);
             userService.saveUser(userEntity);

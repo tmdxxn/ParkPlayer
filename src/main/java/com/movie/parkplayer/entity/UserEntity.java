@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 // 김승준
 @Entity
@@ -20,36 +20,36 @@ public class UserEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "memNum")
     private Long memNum;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "memId", nullable = false, unique = true)
     private String memId;
 
-    @Column(nullable = false)
+    @Column(name = "memPassword", nullable = false)
     private String memPassword;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "memEmail", nullable = false, unique = true)
     private String memEmail;
 
-    @Column(nullable = false)
+    @Column(name = "memTel", nullable = false)
     private String memTel;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date memBirth;
+    @Column(name = "memBirth", nullable = false)
+    private LocalDate memBirth;
 
-    @Column(nullable = false)
+    @Column(name = "memName", nullable = false)
     private String memName;
 
-    @Column(nullable = false)
+    @Column(name = "memGender" , nullable = false)
     private Boolean memGender;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "memRole", nullable = false)
     private UserRole role;
 
     @Builder
-    public UserEntity(String memName, Date memBirth, String memTel, String memEmail, String memPassword, String memId, Long memNum, Boolean memGender, UserRole role) {
+    public UserEntity(String memName, LocalDate memBirth, String memTel, String memEmail, String memPassword, String memId, Long memNum, Boolean memGender, UserRole role) {
         this.memName = memName;
         this.memBirth = memBirth;
         this.memTel = memTel;
